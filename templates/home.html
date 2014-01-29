@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html  lang="{{ LANGUAGE_CODE|default:"es" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+  <head>
+    <title>CLEI</title>
+    {% load staticfiles%}
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/x-icon" href="{{STATIC_URL}}img/logo.jpg">
+     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.min.css"/>
+     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap-responsive.min.css"/>
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+     <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+  </head>
+
+{% block content%}
+  <header>
+    <nav class="navbar navbar-default" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">CLEI</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation">
+        <ul class="nav navbar-nav">
+          <li><a href="#">Acerca de</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"  >Ediciones pasadas <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="http://clei2013.org.ve/"> CLEI 2013</a></li>
+              <li><a href="http://clei.org/clei2012/">CLEI 2012</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones del CLEI <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/crearCLEI"> Crear Nuevo CLEI</a></li>
+              <li><a href="#">Modificar CLEI</a></li>
+            </ul>
+          </li>
+
+        </ul>
+        {% if user.is_authenticated %}
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle nav navbar-nav navbar-right" data-toggle="dropdown"  >{{user.username}} <b class="caret"></b></a>
+            <ul class="dropdown-menu  nav navbar-nav navbar-right">
+              <li><a href="/accounts/logout"> Cerrar sesion</a></li>
+            </ul>
+          </li>
+        </ul>
+        {% endif %}
+        {% if not user.is_authenticated%}
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/accounts/login">Iniciar Sesion</a></li>
+        </ul>
+        {% endif %}
+      </div><!-- /.navbar-collapse -->
+    </nav>
+  </header>
+  {%endblock%}
+
+  <body>
+
+    {% if user.is_authenticated %}
+    <h1>holis</h1>
+    {% endif %}
+  </body>
+</html>

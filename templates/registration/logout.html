@@ -1,0 +1,19 @@
+{% extends "registration/base.html" %}
+
+
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+  <head>
+    <title>CLEI</title>
+    {% load staticfiles%}
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/x-icon" href="{{STATIC_URL}}img/logo.jpg">
+     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.min.css"/>
+     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap-responsive.min.css"/>
+     <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+  </head>
+
+<h1>Ha cerrado sesion satisfactoriamente.</h1>
+<p>Gracias por utilizar los servicios del CLEI, Si lo desea, puede hacer <a href="/accounts/login/">log in</a> de nuevo.</p>
+{% endblock %}
