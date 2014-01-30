@@ -1,0 +1,6 @@
+from django.contrib import admin
+from modulo_clei.models import CLEI, Topico
+
+# Register your models here.
+admin.site.register(CLEI)
+admin.site.register(Topico)
