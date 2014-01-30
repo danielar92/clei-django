@@ -3,32 +3,80 @@
 {% block title %}Log in{% endblock %}
 
 {% block content %}
-  <head>
+<head>
     <title>CLEI</title>
     {% load staticfiles%}
     <meta charset="utf-8">
     <link rel="shortcut icon" type="image/x-icon" href="{{STATIC_URL}}img/logo.jpg">
-     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.min.css"/>
-     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap-responsive.min.css"/>
-     <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
-  </head>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/estilos.css"/>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap-responsive.min.css"/>
+    <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+</head>
 
-    <h1>Iniciar Sesion</h1>
 
-    {% if form.errors %}
-    <p class="error">Por favor corrija los siguientes errores:</p>
-    {% endif %}
 
+{% if form.errors %}
+<p class="error">Por favor corrija los siguientes errores:</p>
+{% endif %}
+
+<table border="0" class="fondo" style="width: 25%;">
+    <th colspan="2" style="text-align: center;">
+        <h2>Iniciar Sesión</h2>
+    </th>
     <form method="post" action="?next={{ next|default:"/" }}">{% csrf_token %}
-      <dl>
-        <dt><label for="id_username">Usuario:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
-        <dd>{{ form.username }}</dd>
-        <dt><label for="id_password">Clave:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
-        <dd>{{ form.password }}</dd>
-        <dt><input style="margin-top:17px" type="submit" value="Iniciar Sesion" /></dt>
-      </dl>
+        <tbody>
+            <tr>
+                <td style="text-align: center;">
+                    <label for="id_username">Usuario:</label>
+                </td>
+                {% if form.username.errors %} 
+                    <tr>
+                        <td style="text-align: center;">
+                            <text style="color: firebrick" class="errors">{{ form.username.errors|join:", " }}</text>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tr>
+            <tr>
+                <td style="text-align: center;">
+                    {{ form.username }}
+                </td>      
+            </tr>
+            <tr>
+                <td style="text-align: center;">
+                    <label for="id_password">Clave:</label>
+                </td>
+                {% if form.password.errors %} 
+                    <tr>
+                        <td style="text-align: center;">
+                            <text style="color: firebrick" class="errors">{{ form.password.errors|join:", " }}</text>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tr>
+                <td style="text-align: center;">
+                    {{ form.password }}
+                </td>
+            </tr>
+            <tr colspan="2" style="text-align: center;">
+                <td style="text-align: center;">
+                    <input style="margin-top:17px" type="submit" value="Iniciar Sesion" />
+                </td>
+            </tr>
+            <tr colspan="2" style="text-align: center;">
+                <td>
+                    <br>
+                    <text>  Si no posee cuenta, puede <a href="/accounts/register/">registrarse</a> aqui. </text>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                </td>
+            </tr>
+        </tbody>
     </form>
+</table>
 
-    <p> Si no posee cuenta,puede <a href="/accounts/register/">registrarse
-        </a> aqui.
     {% endblock %}
