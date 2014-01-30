@@ -17,4 +17,12 @@ urlpatterns = patterns('',
 	url(r'^clei/topicos/create/$', TopicoCreateView.as_view(),name='clei_topico_create'),
 	url(r'^clei/topicos/list/$', TopicoListView.as_view(),name='clei_topico_list'),
 	url(r'^clei/topicos/update/(?P<pk>\d+)/$', TopicoUpdateView.as_view(),name='clei_topico_update'),
+    # Eventos
+    url(r'^lugar/$','evento.views.lugar'),
+    url(r'^taller/$','evento.views.taller'),
+    url(r'^ponencia/$','evento.views.ponencia'),
+    url(r'^charla/$','evento.views.charla'),
+    url(r'^apertura/$','evento.views.apertura'),
+    url(r'^clausura/$','evento.views.clausura'),
+    url(r'^evesocial/$','evento.views.evesocial'),
 )

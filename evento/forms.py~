@@ -36,7 +36,7 @@ class PonenciaForm(ModelForm):
 		
 class TallerForm(ModelForm):
 	class Meta:
-		model = Evento
+		model = Taller
 		exclude = ('tipo',)
 
 	def clean_horaFin(self):
@@ -50,7 +50,7 @@ class TallerForm(ModelForm):
 		
 class AperturaForm(ModelForm):
 	class Meta:
-		model = Evento
+		model = Apertura
 		exclude = ('tipo',)
 
 	def clean_horaFin(self):
@@ -63,7 +63,7 @@ class AperturaForm(ModelForm):
 		
 class ClausuraForm(ModelForm):
 	class Meta:
-		model = Evento
+		model = Clausura
 		exclude = ('tipo',)
 
 	def clean_horaFin(self):
@@ -76,7 +76,7 @@ class ClausuraForm(ModelForm):
 		
 class EventoSocialForm(ModelForm):
 	class Meta:
-		model = Evento
+		model = EventoSocial
 		exclude = ('tipo',)
 		
 	def clean_horaFin(self):

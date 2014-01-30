@@ -1,7 +1,7 @@
 #encoding:utf-8
 from django.forms import ModelForm
 from django import forms
-from evento.models import Lugar, Evento, Charla, Ponencia
+from evento.models import Lugar, Evento, Charla, Ponencia, Taller, Clausura, Apertura, EventoSocial
 
 class LugarForm(ModelForm):
 	class Meta:

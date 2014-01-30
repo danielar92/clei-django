@@ -28,13 +28,13 @@ class Taller(Evento):
 	pass
 	
 class Charla(Evento):
-	charlista = models.ForeignKey(Persona)
-	moderador = model.ForeignKey(Persona)
+	charlista = models.ForeignKey(Persona, related_name='charlista_charla')
+	moderador = models.ForeignKey(Persona, related_name='moderador_charla')
 	
 class Ponencia(Evento):
-	ponente = models.ForeignKey(Persona)
-	trabajos = models.ManyToManyField(Articulo)
-	moderador = model.ForeignKey(Persona)
+	ponente = models.ForeignKey(Persona, related_name='ponente_ponencia')
+	trabajos = models.ManyToManyField(Articulo, related_name='trabajos_ponencia')
+	moderador = models.ForeignKey(Persona, related_name='moderador_ponencia')
 
 class Apertura(Evento):
 	pass
