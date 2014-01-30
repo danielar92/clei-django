@@ -1,28 +1,31 @@
 from django.db import models
-# from django import forms
-# from django.contrib.auth.models import User
-from django.contrib.auth.models import Group
-from personas.models import Persona, Autor
+from personas.models import Persona, Autor, MiembroCP
 
 
 
 class Topico(models.Model):
     nombre = models.CharField(max_length=60)
 
+    def __unicode__(self):
+        return self.nombre
+
 class CLEI(models.Model):
     fechaInscripcionDescuento = models.DateTimeField()
     fechaInscripcion = models.DateTimeField()
     fechaTopeArticulo = models.DateTimeField()
     fechaNotificacion = models.DateTimeField()
-    tarifaReducida = models.DateTimeField()
-    tarifaNormal = models.DateTimeField()
+    tarifaReducida = models.FloatField()
+    tarifaNormal = models.FloatField()
     fechaInicio =  models.DateTimeField()
-    topicos = models.ManyToManyField(Topico)
-    cp = models.ForeignKey(Group)
+    topicos = models.ManyToManyField(Topico, related_name='cleis')
 
-    # cp = models.ForeignKey('personas.CP',related_name='cp_del_clei')
-    #articulos =  models.ForeignKey(Articulo)
-    # dias = 5
+    def __unicode__(self):
+        return "CLEI del %s" % (self.fechaInicio.strftime("%Y"))
+
+class CP(models.Model):
+    miembros = models.ManyToManyField(MiembroCP)
+    clei = models.OneToOneField(CLEI, related_name='cp')
+
 
 class Inscripcion(models.Model):
     dirPostal = models.CharField(max_length=60)
@@ -30,23 +33,40 @@ class Inscripcion(models.Model):
     telf = models.IntegerField()
     tipo = models.IntegerField()
     fecha = models.DateTimeField()
-    clei = models.ForeignKey(CLEI)
-    persona = models.ForeignKey(Persona)
+    clei = models.ForeignKey(CLEI, related_name='inscripciones')
+    persona = models.ForeignKey(Persona, related_name='inscripciones')
 
 
+ACEPTADO, RECHAZADO, REVISANDO, ESPERANDO = range(4)
+STATUS_CHOICES = (
+    (ACEPTADO, "Aceptado"),
+    (RECHAZADO, "Rechazado"),
+    (REVISANDO, "En Revision"),
+    (ESPERANDO, "En Espera"),
+)
 class Articulo(models.Model):
-    # ACEPTADO, RECHAZADO, REVISANDO, ESPERANDO = range(4)
     titulo = models.CharField(max_length=60)
-    pclaves = models.CharField(max_length=60) # TIENEN QUE SER 5 CAMPOS
-    # status = ESPERANDO
-    status = models.IntegerField()
-    note = models.IntegerField()
-    # nota = 0
-    correcciones = 0
+    pclaves = models.TextField(max_length=60)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=ESPERANDO)
     autores = models.ManyToManyField(Autor)
     topicos = models.ManyToManyField(Topico)
-    # evaluadores = models.ManyToManyField()
-    clei = models.ForeignKey(CLEI)
+    clei = models.ForeignKey(CLEI, related_name='articulos')
+
+    @property
+    def nota(self):
+        return 0
+
+    @property
+    def evaluadores(self):
+        return None
+
+class Evaluacion(models.Model):
+    articulo = models.ForeignKey(Articulo, related_name='correcciones')
+    evaluador = models.ForeignKey(Persona, related_name='evaluaciones')
+    nota = models.IntegerField()
+
+    class Meta:
+        unique_together = ("articulo", "evaluador")
 
 class Lugar(models.Model):
     nombre = models.CharField(max_length=60)
@@ -59,20 +79,23 @@ class Evento(models.Model):
     fecha = models.DateTimeField()
     horaInicio = models.TimeField()
     horaFin = models.TimeField()
-    lugar = models.ForeignKey(Lugar)
-    tipo = models.CharField(max_length=60)
+    lugar = models.ForeignKey(Lugar, related_name='eventos')
+    # tipo = models.CharField(max_length=60)
 
-# class Ponencia(models.Model):
-#     articulos = models.ManyToManyField(Articulo)
-#     moderador = models.ForeignKey('personas.Persona',related_name='modera_ponencia')
-#     ponente = models.ForeignKey('personas.Persona')
+class Ponencia(Evento):
+    articulos = models.ManyToManyField(Articulo)
+    moderador = models.ForeignKey(Persona, related_name='ponencias_moderadas')
+    ponente = models.ForeignKey(Persona)
 
-# class Charla(models.Model):
-#     moderador = models.ForeignKey('personas.Persona',related_name='modera_charla')
-#     charlista = models.ForeignKey('personas.Persona')
+class Charla(Evento):
+    moderador = models.ForeignKey('personas.Persona',related_name='charlas_moderadas')
+    presentador = models.ForeignKey('personas.Persona')
 
-# # class Social(Evento):
+class Social(Evento):
+    pass
 
-# # class Apertura(Evento):
+class Apertura(Evento):
+    pass
 
-# # class Clausura(Evento):
+class Clausura(Evento):
+    pass

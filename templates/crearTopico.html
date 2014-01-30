@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block content%}
-    <form action="/clei/create/" method="POST">
+    <form action="/clei/topicos/create/" method="POST">
       <table style="" >
         {% csrf_token %}
         {{form|crispy}}

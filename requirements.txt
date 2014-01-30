@@ -1,0 +1,13 @@
+Django==1.6.1
+South==0.8.4
+argparse==1.2.1
+distribute==0.6.35
+django-countries==2.0c1
+django-registration==1.0
+stevedore==0.9.1
+virtualenv==1.9.1
+virtualenv-clone==0.2.4
+virtualenvwrapper==3.7
+wsgiref==0.1.2
+django-crispy-forms
+django-braces

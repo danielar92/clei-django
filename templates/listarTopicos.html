@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+<ul>
+{% for topico in object_list %}
+<li><a href="{% url "clei_topico_update" topico.pk %}">{{ topico }}</a></li>
+{% empty %}
+No existe ningún Topico
+{% endfor %}
+</ul>
+<a href="{% url "clei_topico_create" %}">Crear Topico</a>
+{%endblock%}

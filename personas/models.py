@@ -10,20 +10,6 @@ class Persona(User):
 
 class Autor(Persona):
     pais = CountryField()
-    # articulos = models.ForeignKey('modulo_clei.Articulo')
 
-
-# class Dict(models.Model):
-#     articulo = models.ForeignKey('modulo_clei.Articulo')
-#     nota = models.IntegerField()
-
-# class MiembroCP(Persona):
-#     esPresidente = models.BooleanField()
-#     experticies = models.ManyToManyField('modulo_clei.Topico')
-    # correcciones = models.ForeignKey(Dict,db_index=True)
-
-
-# class CP(models.Model):
-#     clei = models.ForeignKey('modulo_clei.CLEI',related_name='clei_asociado')
-#     miembros = models.ManyToManyField(MiembroCP,related_name='miembros_cp')
-#     presidente = models.ForeignKey(MiembroCP)
+class MiembroCP(Persona):
+    experticies = models.ManyToManyField('modulo_clei.Topico')
