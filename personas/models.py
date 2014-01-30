@@ -7,9 +7,13 @@ class Persona(User):
     nombre = models.CharField(max_length=60)
     apellido = models.CharField(max_length=60)
     institucion  = models.CharField(max_length=60)
-
-class Autor(Persona):
     pais = CountryField()
-
-class MiembroCP(Persona):
     experticies = models.ManyToManyField('modulo_clei.Topico')
+
+    def __unicode__(self):
+        return "%s %s" % (self.nombre, self.apellido)
+
+# class Autor(Persona):
+
+
+# class MiembroCP(Persona):

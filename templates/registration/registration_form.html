@@ -1,4 +1,5 @@
-{% extends "registration/base.html" %}
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}Registrarse{% endblock %}
 
@@ -23,35 +24,8 @@
 
   <form method="post" action="" class="wide">
 	{% csrf_token %}
-    <p>
-      <label for="id_username">Usuario:</label>
-      {% if form.username.errors %}
-        <p class="errors">{{ form.username.errors.as_text }}</p>
-      {% endif %}
-      {{ form.username }}
-    </p>
-    <p>
-      <label for="id_email">Email:</label>
-      {% if form.email.errors %}
-        <p class="errors">{{ form.email.errors.as_text }}</p>
-      {% endif %}
-      {{ form.email }}
-    </p>
-    <p>
-      <label for="id_password1">Clave:</label>
-      {% if form.password1.errors %}
-        <p class="errors">{{ form.password1.errors.as_text }}</p>
-      {% endif %}
-      {{ form.password1 }}
-    </p>
-    <p>
-      <label for="id_password2">Clave nuevamente:</label>
-      {% if form.password2.errors %}
-        <p class="errors">{{ form.password2.errors.as_text }}</p>
-      {% endif %}
-      {{ form.password2 }}
-    </p>
-
+        {% csrf_token %}
+        {{form|crispy}}
     <!-- <form class="form-horizontal"> -->
     <!--   <fieldset> -->
     <!--     <div class="control-group"> -->

@@ -1,5 +1,5 @@
 from django.db import models
-from personas.models import Persona, Autor, MiembroCP
+from personas.models import Persona
 
 
 
@@ -23,8 +23,11 @@ class CLEI(models.Model):
         return "CLEI del %s" % (self.fechaInicio.strftime("%Y"))
 
 class CP(models.Model):
-    miembros = models.ManyToManyField(MiembroCP)
+    miembros = models.ManyToManyField(Persona)
     clei = models.OneToOneField(CLEI, related_name='cp')
+
+    def __unicode__(self):
+        return "CP del %s" % self.clei
 
 
 class Inscripcion(models.Model):
@@ -48,7 +51,7 @@ class Articulo(models.Model):
     titulo = models.CharField(max_length=60)
     pclaves = models.TextField(max_length=60)
     status = models.IntegerField(choices=STATUS_CHOICES, default=ESPERANDO)
-    autores = models.ManyToManyField(Autor)
+    autores = models.ManyToManyField(Persona)
     topicos = models.ManyToManyField(Topico)
     clei = models.ForeignKey(CLEI, related_name='articulos')
 
