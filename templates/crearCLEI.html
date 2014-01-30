@@ -38,7 +38,7 @@
           </li>
 
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones del CLEI <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right:-0.5px">Opciones del CLEI <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="/crearCLEI"> Crear Nuevo CLEI</a></li>
               <li><a href="#">Modificar CLEI</a></li>
@@ -67,7 +67,14 @@
   {%endblock%}
 
   <body>
-    {{cleiform.as_p}}
+    <form action="." method="POST">
+      <table style="" >
+        {% csrf_token %}
+        {{cleiform.as_p}}
+        <input type="submit" class="btn btn-default" value="Crear" />
+      </table>
+    </form>
+
 
   </body>
 </html>

@@ -49,8 +49,8 @@
         {% if user.is_authenticated %}
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle nav navbar-nav navbar-right" data-toggle="dropdown"  >{{user.username}} <b class="caret"></b></a>
-            <ul class="dropdown-menu  nav navbar-nav navbar-right">
+            <a href="#" class="dropdown-toggle nav navbar-nav navbar-right" data-toggle="dropdown" >{{user.username}} <b class="caret"></b></a>
+            <ul class="dropdown-menu  nav navbar-nav navbar-right"  style="margin-right:-0.5px" >
               <li><a href="/accounts/logout"> Cerrar sesion</a></li>
             </ul>
           </li>

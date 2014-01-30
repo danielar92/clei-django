@@ -17,10 +17,10 @@ class Autor(Persona):
 #     articulo = models.ForeignKey('modulo_clei.Articulo')
 #     nota = models.IntegerField()
 
-# class MiembroCP(Persona):
-#     esPresidente = models.BooleanField()
-#     experticies = models.ManyToManyField('modulo_clei.Topico')
-    # correcciones = models.ForeignKey(Dict,db_index=True)
+class MiembroCP(Persona):
+    esPresidente = models.BooleanField()
+    experticies = models.ManyToManyField('modulo_clei.Topico')
+    #correcciones = models.ForeignKey(Dict,db_index=True)
 
 
 # class CP(models.Model):
