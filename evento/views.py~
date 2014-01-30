@@ -8,9 +8,8 @@ from django.template import RequestContext
 # Create your views here.
 def lugar(request):
 	if request.method=='POST':
-		formulario = CharlaForm(request.POST)
+		formulario = LugarForm(request.POST)
 		if formulario.is_valid():
-			formulario.cleaned_data['nombre'] = "LO QUE YO QUIERA"
 			formulario.save()
 			return HttpResponseRedirect('/admin')
 	else:

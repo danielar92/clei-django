@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
+    'crispy_forms',
     'registration',
     'django_countries',
     'modulo_clei',
@@ -98,4 +99,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
 RUTA_PROYECTO = os.path.dirname(os.path.realpath(__file__))
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+

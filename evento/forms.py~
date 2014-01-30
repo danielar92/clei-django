@@ -24,6 +24,7 @@ class CharlaForm(ModelForm):
 class PonenciaForm(ModelForm):		
 	class Meta:
 		model = Ponencia
+		exclude = ('tipo',)
 
 	def clean_horaFin(self):
 		ini = self.cleaned_data['horaIni']
@@ -36,6 +37,7 @@ class PonenciaForm(ModelForm):
 class TallerForm(ModelForm):
 	class Meta:
 		model = Evento
+		exclude = ('tipo',)
 
 	def clean_horaFin(self):
 		ini = self.cleaned_data['horaIni']
@@ -49,6 +51,7 @@ class TallerForm(ModelForm):
 class AperturaForm(ModelForm):
 	class Meta:
 		model = Evento
+		exclude = ('tipo',)
 
 	def clean_horaFin(self):
 		ini = self.cleaned_data['horaIni']
@@ -61,6 +64,7 @@ class AperturaForm(ModelForm):
 class ClausuraForm(ModelForm):
 	class Meta:
 		model = Evento
+		exclude = ('tipo',)
 
 	def clean_horaFin(self):
 		ini = self.cleaned_data['horaIni']
@@ -73,6 +77,7 @@ class ClausuraForm(ModelForm):
 class EventoSocialForm(ModelForm):
 	class Meta:
 		model = Evento
+		exclude = ('tipo',)
 		
 	def clean_horaFin(self):
 		ini = self.cleaned_data['horaIni']

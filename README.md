@@ -1,2 +1,3 @@
-Hagan pip install django-registration
-      pip install south
+Hagan pip install -r requirements.txt
+======================================
+
