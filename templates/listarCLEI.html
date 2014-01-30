@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+<ul>
+{% for clei in object_list %}
+<li><a href="{% url "clei_update" clei.pk %}">{{ clei }}</a></li>
+{% empty %}
+No existe ningún CLEI
+{% endfor %}
+</ul>
+<a href="{% url "clei_create" %}">Crear CLEI</a>
+{%endblock%}
