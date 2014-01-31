@@ -1,8 +1,10 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic.base import RedirectView
+from articulo.views import ArticuloCreateView, ArticuloListView, ArticuloUpdateView
 from django.contrib import admin
 from modulo_clei.views import CLEICreateView, CLEIListView, CLEIUpdateView, TopicoCreateView, TopicoListView, TopicoUpdateView
 admin.autodiscover()
+
 
 urlpatterns = patterns('',
     # Examples:
@@ -27,5 +29,8 @@ urlpatterns = patterns('',
     url(r'^evesocial/$','evento.views.evesocial'),
     # Articulos
     url(r'^articulo/$','articulo.views.articulo'),
-    url(r'^evalua/$','modulo_clei.views.evalua')
+    url(r'^evalua/$','modulo_clei.views.evalua'),
+    url(r'^articulo/create/$', ArticuloCreateView.as_view(),name='articulo_create'),
+    url(r'^articulo/list/$', ArticuloListView.as_view(),name='articulo_list'),
+    url(r'^articulo/update/(?P<pk>\d+)/$', ArticuloUpdateView.as_view(),name='articulo_update'),
 )
