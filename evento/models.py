@@ -1,38 +1,47 @@
 from django.db import models
+from modulo_clei.models import CLEI, Topico
 from articulo.models import Articulo
 from personas.models import Persona
+from django.forms import ModelForm
+from django import forms
+
 
 class Lugar(models.Model):
-    nombre = models.CharField(max_length=60)
-    ubicacion = models.CharField(max_length=60)
-    capacidad = models.IntegerField()
-    #eventos = models.ManyToManyField(Evento)
+    nombre = models.CharField(max_length=50)
+    ubicacion = models.TextField(max_length=140)
+    capacidad = models.PositiveIntegerField()
+
+    def __unicode__(self):
+        return self.nombre
 
 class Evento(models.Model):
-    nombre = models.CharField(max_length=60)
-    fecha = models.DateTimeField()
-    horaInicio = models.TimeField()
-    horaFin = models.TimeField()
-    lugar = models.ForeignKey(Lugar, related_name='eventos')
-    # tipo = models.CharField(max_length=60)
+	nombre = models.CharField(max_length=80)
+	lugar = models.ForeignKey(Lugar)
+	fecha = models.DateField()
+	horaIni = models.TimeField()
+	horaFin = models.TimeField()
 
+	def __unicode__(self):
+		return self.nombre
+
+class Taller(Evento):
+	pass
+	
+class Charla(Evento):
+	charlista = models.ForeignKey(Persona, related_name='charlista_charla')
+	moderador = models.ForeignKey(Persona, related_name='moderador_charla')
+	
 class Ponencia(Evento):
     articulos = models.ManyToManyField(Articulo)
-    moderador = models.ForeignKey(Persona, related_name='ponencias_moderadas')
-    ponente = models.ForeignKey(Persona)
-
-class Charla(Evento):
-    moderador = models.ForeignKey('personas.Persona',related_name='charlas_moderadas')
-    presentador = models.ForeignKey('personas.Persona')
-
-class Social(Evento):
-    pass
+	ponente = models.ForeignKey(Persona, related_name='ponente_ponencia')
+	trabajos = models.ManyToManyField(Articulo, related_name='trabajos_ponencia')
+	moderador = models.ForeignKey(Persona, related_name='moderador_ponencia')
 
 class Apertura(Evento):
-    pass
-
+	pass
+	
 class Clausura(Evento):
-    pass
-
-
-# Create your models here.
+	pass
+	
+class EventoSocial(Evento):
+	pass

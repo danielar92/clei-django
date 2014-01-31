@@ -9,6 +9,7 @@ STATUS_CHOICES = (
     (REVISANDO, "En Revision"),
     (ESPERANDO, "En Espera"),
 )
+        
 class Articulo(models.Model):
     titulo = models.CharField(max_length=60)
     pclaves = models.TextField("Palabras claves", help_text="hasta 5 palabras claves, separadas por coma", max_length=60,)
@@ -16,7 +17,9 @@ class Articulo(models.Model):
     autores = models.ManyToManyField(Persona, related_name='articulos')
     topicos = models.ManyToManyField(Topico)
     clei = models.ForeignKey(CLEI, related_name='articulos', null=True, blank=True)
+		return self.titulo
 
+	@property
     def __unicode__(self):
         return self.titulo
 

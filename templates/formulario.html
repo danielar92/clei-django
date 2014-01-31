@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+
+
+<html>
+    <body>
+        <table border="0" class="fondo">
+        <h1>PROBANDO FORMULARIOS DE EVENTOS</h1>
+        <form id='formulario' method='POST' action=''>{% csrf_token %}
+            
+            {{formulario.as_p}}
+            
+            <p><input type='submit' value='OK'/></p>
+        </form>
+        </table>
+    </body>
+</html>
+{% endblock %}

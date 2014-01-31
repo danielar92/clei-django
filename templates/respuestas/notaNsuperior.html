@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+<ul>
+    <table class="table table-stripped" style="width: 50%"><tbody>
+        <th style="text-align: left">
+            Escoger los articulos que superen la nota ingresada.
+        </th>
+        <tr style="text-align: left">
+        <td>
+            Nota ingresada: 4.68
+        </td>
+    </tr>\
+    <tr style="text-align: center">
+        <td>
+            1- Titulo: "Todo el poder de las maquinas", por "Alan Turing", Nota: "5.0"
+        </td>
+    </tr>
+    <tr style="text-align: center">
+        <td>
+            2- Titulo: "Bares y bebidas", por "Luis Perez", Nota: "4.86"
+        </td>
+    </tr>
+    <tr style="text-align: center">
+        <td>
+            3- Titulo: "Fronteras tecnologicas", por "Carlos Cruz", Nota: "4.70"
+        </td>
+    </tr>
+        </tbody>
+    </table>
+</ul>
+{%endblock%}

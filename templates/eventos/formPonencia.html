@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+
+<html>
+    <body>
+        <table border="0" class="fondo" style="width: 40%">
+            <th colspan="2" style="text-align: center;">
+                <h1>Creación de Ponencias</h1>
+            </th>
+            <form id='formulario' method='POST' action=''>{% csrf_token %}
+                <tr>
+                    <td style="text-align: center;">
+                        Nombre:
+                    </td>
+                    <td style="text-align: center;">
+                        {{ formulario.nombre }}
+                    </td>
+                    {% if formulario.nombre.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.nombre.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        Lugar:
+                    </td>
+                    <td style="text-align: center;">
+                        {{ formulario.lugar }}
+                    </td>
+                    {% if formulario.lugar.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.lugar.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        Fecha:
+                    </td>
+                    <td style="text-align: center;">
+                        {{ formulario.fecha }}
+                    </td>
+                    {% if formulario.fecha.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.fecha.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        Hora Inicio:
+                    </td>
+                    <td style="text-align: center;">
+                        {{ formulario.horaIni }}
+                    </td>
+                    {% if formulario.horaIni.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.horaIni.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        Hora Fin:
+                    </td>
+                    <td style="text-align: center;">
+                        {{ formulario.horaFin }}
+                    </td>
+                    {% if formulario.horaFin.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.horaFin.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        Ponente
+                    </td>
+                    <td style="text-align: center;">
+                        {{ formulario.ponente }}
+                    </td>
+                    {% if formulario.ponente.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.ponente.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        Trabajos
+                    </td>
+                    <td style="text-align: center;" style="width: 40%">
+                        {{ formulario.trabajos }}
+                    </td>
+                    <tr>
+                        <td style="text-align: center;"colspan="2">
+                            <text style="color: #868181; font-size: 12px" >  {{formulario.trabajos.help_text}} </text>
+                        </td>
+                    </tr>
+                    {% if formulario.trabajos.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.trabajos.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        Moderador:
+                    </td>
+                    <td style="text-align: center;">
+                        {{ formulario.moderador }}
+                    </td>
+                    {% if formulario.Moderador.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.Moderador.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <br>
+                        <input type="submit" class="btn btn-info" value="Crear Ponencia" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                    </td>
+                </tr>
+
+            </form>
+        </table>
+    </body>
+</html>
+{% endblock %}

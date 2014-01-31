@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+{% extends "registration/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+<head>
+    <title>CLEI</title>
+    {% load staticfiles%}
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/x-icon" href="{{STATIC_URL}}img/logo.jpg">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/estilos.css"/>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap-responsive.min.css"/>
+    <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<html>
+    <body>
+        <table border="0" class="fondo" style="width: 30%">
+            <th colspan="2" style="text-align: center;">
+                <h1>Creación de Eventos Sociales</h1>
+            </th>
+            <form id='formulario' method='POST' action=''>{% csrf_token %}
+                <tr>
+                    <td style="text-align: center;">
+                        Nombre:
+                    </td>
+                    <td style="text-align: center;">
+                        {{ formulario.nombre }}
+                    </td>
+                    {% if formulario.nombre.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.nombre.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        Lugar:
+                    </td>
+                    <td style="text-align: center;">
+                        {{ formulario.lugar }}
+                    </td>
+                    {% if formulario.lugar.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.lugar.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        Fecha:
+                    </td>
+                    <td style="text-align: center;">
+                        {{ formulario.fecha }}
+                    </td>
+                    {% if formulario.fecha.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.fecha.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        Hora Inicio:
+                    </td>
+                    <td style="text-align: center;">
+                        {{ formulario.horaIni }}
+                    </td>
+                    {% if formulario.horaIni.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.horaIni.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        Hora Fin:
+                    </td>
+                    <td style="text-align: center;">
+                        {{ formulario.horaFin }}
+                    </td>
+                    {% if formulario.horaFin.errors %}
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <text style="color: firebrick" class="errors">{{ formulario.horaFin.errors.as_text }}</text>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <br>
+                        <input type="submit" class="btn btn-info" value="Crear Evento Social" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                    </td>
+                </tr>
+
+            </form>
+        </table>
+    </body>
+</html>
+{% endblock %}

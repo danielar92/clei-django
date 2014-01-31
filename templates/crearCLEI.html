@@ -2,12 +2,42 @@
 {% load crispy_forms_tags %}
 
 {% block content%}
-    <form action="/clei/create/" method="POST">
-      <table style="" >
-        {% csrf_token %}
-        {{form|crispy}}
-        <input type="submit" class="btn btn-default" value="Crear" />
-      </table>
-    </form>
+
+
+<html>
+    <body>
+        <table border="0" class="fondo">
+
+            <form action="/clei/create/" method="POST">    
+                {% csrf_token %}
+                <tbody>
+                <th colspan="2" style="text-align: center;">
+                <h3>
+                    Creación de CLEI
+                </h3>
+                </th>
+                    <tr>
+                        <td>
+                            {{form|crispy}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <br>
+                            <input type="submit" class="btn btn-info" value="Crear Clei" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
+                        </td>
+                    </tr>
+                </tbody>
+                
+
+            </form>
+        </table>
+    </body>
+</html>
 
 {%endblock%}

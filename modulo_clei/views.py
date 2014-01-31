@@ -3,14 +3,17 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.template import RequestContext
 from django import forms
 from django.contrib import messages
+from modulo_clei.models import CLEI,Topico, Evaluacion
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.forms import ModelForm
-
+from personas.models import Persona
 from vanilla.model_views import CreateView, ListView, UpdateView, DetailView
+
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
-from .forms import CLEIForm, TopicoForm, ArticuloForm, InscripcionForm
+from .forms import CLEIForm, TopicoForm, ArticuloForm, InscripcionForm, EvaluarForm
+
 from .models import CLEI,Topico , CP, Articulo, Inscripcion
 
 
@@ -104,6 +107,7 @@ class CLEIUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
     form_class = CLEIForm
     template_name = 'actualizarCLEI.html'
     success_url = '/clei/list'
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form(instance=self.object)
@@ -112,13 +116,21 @@ class CLEIUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
         return self.render_to_response(context)
 
 # def MostrarClei(request):
+    if request.method == 'POST':
+        form = CLEIForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = CLEIForm()
 #     return render(request,'crearCLEI.html')
 
-# def CrearClei(request):
-#     if request.method == 'POST':
-#         form = CLEIForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#     else:
-#         form = CLEIForm()
-#     return render(request,'crearCLEI.html',{'cleiform':form})
+def evalua(request):
+    if request.method == 'POST':
+        formulario = EvaluarForm(request.POST)
+        if formulario.is_valid():
+            evaluador, created = Persona.objects.get_or_create(id=request.user.id)            
+            eval = Evaluacion(articulo=formulario.cleaned_data.get('articulo'),evaluador=evaluador,nota=formulario.cleaned_data.get('nota'))
+            eval.save()
+    else:
+        formulario = EvaluarForm()
+    return render(request,'formulario.html',{'formulario':formulario}, context_instance=RequestContext(request))    
