@@ -3,11 +3,21 @@
 
 {% block content%}
 <ul>
-{% for clei in object_list %}
-<li><a href="{% url "clei_update" clei.pk %}">{{ clei }}</a></li>
-{% empty %}
-No existe ningún CLEI
-{% endfor %}
+    <table class="table table-stripped" style="width: 50%">
+    {% for clei in object_list %}
+    <tr>
+        <td style="text-align: center;">
+        <text style="text-align: center;"><a href="{% url "clei_update" clei.pk %}">{{ clei }}</a></text>
+        </td>
+    <tr>
+    {% empty %}
+    No existe ningún CLEI
+    {% endfor %}
+    <tr>
+        <td style="text-align: center;">
+            <button class="btn btn-default"><a href="{% url "clei_create" %}">Crear CLEI</a></button>
+        </td>
+    </tr>
+    </table>
 </ul>
-<a href="{% url "clei_create" %}">Crear CLEI</a>
 {%endblock%}

@@ -2,12 +2,28 @@
 {% load crispy_forms_tags %}
 
 {% block content%}
+
+<table class="fondo" style="width: 30%">
     <form method="POST">
-      <table style="" >
         {% csrf_token %}
+        <th style="text-align: center;">
+        <h3>
+            Actualización de Tópico
+        </h3>
+        </th>
+        <tbody>
+            <tr>
+                <td>
         {{form|crispy}}
-        <input type="submit" class="btn btn-default" value="Actualizar" />
-      </table>
-    </form>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">
+        <input type="submit" class="btn btn-info" value="Actualizar" />
+                </td>
+            </tr>
+    </tbody>
+</table>
+</form>
 
 {%endblock%}

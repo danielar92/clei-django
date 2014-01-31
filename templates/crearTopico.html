@@ -1,19 +1,9 @@
 <!DOCTYPE html>
-{% extends "registration/base.html" %}
+{% extends "base.html" %}
 {% load crispy_forms_tags %}
 
 {% block content%}
-<head>
-    <title>CLEI</title>
-    {% load staticfiles%}
-    <meta charset="utf-8">
-    <link rel="shortcut icon" type="image/x-icon" href="{{STATIC_URL}}img/logo.jpg">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/estilos.css"/>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap-responsive.min.css"/>
-    <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-</head>
+
 <table border="0" class="fondo" style="width: 35%">
     <form action="/clei/topicos/create/" method="POST">
         {% csrf_token %}

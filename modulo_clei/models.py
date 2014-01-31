@@ -8,8 +8,8 @@ class Topico(models.Model):
         return self.nombre
 
 class CLEI(models.Model):
-    fechaInscripcionDescuento = models.DateTimeField()
     fechaInscripcion = models.DateTimeField()
+    fechaInscripcionDescuento = models.DateTimeField()
     fechaTopeArticulo = models.DateTimeField()
     fechaNotificacion = models.DateTimeField()
     tarifaReducida = models.FloatField()
