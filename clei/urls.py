@@ -25,4 +25,7 @@ urlpatterns = patterns('',
     url(r'^apertura/$','evento.views.apertura'),
     url(r'^clausura/$','evento.views.clausura'),
     url(r'^evesocial/$','evento.views.evesocial'),
+    # Articulos
+    url(r'^articulo/$','articulo.views.articulo'),
+    url(r'^evalua/$','modulo_clei.views.evalua')
 )

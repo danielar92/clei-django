@@ -1,6 +1,6 @@
-#encoding:utf-8
 from django.db import models
-from modulo_clei.models import CLEI, Topico, Articulo
+from modulo_clei.models import CLEI, Topico
+from articulo.models import Articulo
 from personas.models import Persona
 from django.forms import ModelForm
 from django import forms
