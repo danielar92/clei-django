@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic.base import RedirectView
 from django.contrib import admin
-from modulo_clei.views import CLEICreateView, CLEIListView, CLEIUpdateView, CLEIDetailView, TopicoCreateView, TopicoListView, TopicoUpdateView, ArticuloCreateView, ArticuloListView, ArticuloUpdateView
+from modulo_clei.views import CLEICreateView, CLEIListView, CLEIUpdateView, CLEIDetailView, TopicoCreateView, TopicoListView, TopicoUpdateView, ArticuloCreateView, ArticuloListView, ArticuloUpdateView, InscripcionCreateView
 admin.autodiscover()
 
 from registration.backends.simple.views import RegistrationView
@@ -25,6 +25,7 @@ urlpatterns = patterns('',
                        url(r'^clei/topicos/list/$', TopicoListView.as_view(),name='clei_topico_list'),
                        url(r'^clei/topicos/update/(?P<pk>\d+)/$', TopicoUpdateView.as_view(),name='clei_topico_update'),
                        url(r'^clei/(?P<pk>\d+)/articulos/create/$', ArticuloCreateView.as_view(),name='clei_articulo_create'),
+                       url(r'^clei/(?P<pk>\d+)/inscripcion/create/$', InscripcionCreateView.as_view(),name='clei_inscripcion_create'),
                        url(r'^clei/articulos/list/$', ArticuloListView.as_view(),name='clei_articulo_list'),
                        url(r'^clei/articulos/update/(?P<pk>\d+)/$', ArticuloUpdateView.as_view(),name='clei_articulo_update'),
                        # url(r'^clei/CP/create/$', CPCreateView.as_view(),name='cp_create'),

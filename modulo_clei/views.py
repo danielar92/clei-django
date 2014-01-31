@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 from django.template import RequestContext
 from django import forms
-from modulo_clei.models import CLEI,Topico , CP, Articulo
+from django.contrib import messages
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.forms import ModelForm
@@ -11,34 +11,66 @@ from vanilla.model_views import CreateView, ListView, UpdateView, DetailView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 
-from .forms import CLEIForm, TopicoForm, ArticuloForm
+from .forms import CLEIForm, TopicoForm, ArticuloForm, InscripcionForm
+from .models import CLEI,Topico , CP, Articulo, Inscripcion
 
 
-def log_in_processor(request):
-    return {'login_form': AuthenticationForm()}
+def clei_processor(request):
+    actual = CLEI.objects.order_by('-fechaInicio')[0]
+    inscrito = actual.inscrito(request.user) if request.user.is_authenticated() and hasattr(request.user, 'persona') else False
+    return {
+        'cleis': CLEI.objects.exclude(pk=actual.pk),
+        'actual': actual,
+        'inscrito': inscrito
+    }
 
 def home(request):
     return render(request,'home.html')
 
-# class CPCreateView(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
-#     model = CP
-#     form_class = CPForm
-#     template_nema = 'crearCP.html'
-#     succes_url = '/clei/CP/create'
 
 
-class ArticuloCreateView(LoginRequiredMixin, CreateView):
+class CLEIMixin(object):
+    clei = None
+    def get_clei(self):
+        if self.clei is None:
+            clei_pk = self.kwargs.get('pk')
+            self.clei = CLEI.objects.get(pk=clei_pk)
+        return self.clei
+
+    def get_context_data(self, **kwargs):
+        context = super(CLEIMixin, self).get_context_data(**kwargs)
+        context['clei'] = self.get_clei()
+        return context
+
+
+class InscripcionCreateView(LoginRequiredMixin, CLEIMixin, CreateView):
+    model = Inscripcion
+    form_class = InscripcionForm
+    success_url = '/'
+    template_name = 'crearInscripcion.html'
+
+    def form_valid(self, form):
+        inscripcion = Inscripcion(clei=self.get_clei(),
+                                  persona=self.request.user.persona,
+                                  costo=self.get_clei().costo_inscripcion)
+        messages.success(self.request, "Inscrito exitosamente.")
+        inscripcion.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class ArticuloCreateView(LoginRequiredMixin, CLEIMixin, CreateView):
     model = Articulo
     form_class = ArticuloForm
     template_name = 'crearArticulo.html'
     success_url = '/clei/articulos/list'
+    clei = None
 
     def form_valid(self, form):
         self.object = form.save()
-        clei_pk = self.kwargs.get('pk')
-        clei = CLEI.objects.get(pk=clei_pk)
+        clei = self.get_clei()
         self.object.clei = clei
         self.object.save()
+        messages.success(self.request, "Articulo guardado exitosamente. Sera evaluado a la brevedad.")
         return HttpResponseRedirect(self.get_success_url())
 
 class ArticuloListView(LoginRequiredMixin, ListView):
@@ -86,6 +118,7 @@ class CLEICreateView(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
         cp.save()
         for miembro in form.cleaned_data['miembros']:
             cp.miembros.add(miembro)
+        messages.success(self.request, "CLEI creado exitosamente.")
         return HttpResponseRedirect(self.success_url)
 
 

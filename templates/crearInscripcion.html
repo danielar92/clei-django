@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+{% if clei.puede_inscribir and not inscrito%}
+    <form  method="POST">
+      <table style="" >
+        <p>El costo de inscripción corresponde a  Bs. {{ clei.costo_inscripcion }}.</p>
+
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type="submit" class="btn btn-default" value="Pagar & Inscribir" />
+      </table>
+    </form>
+{% elif inscrito %}
+Ya estas inscrito en este CLEI. Te esperamos!
+{% else %}
+Las inscripciones ya estan cerradas.
+{% endif %}
+
+{%endblock%}

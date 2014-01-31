@@ -7,6 +7,7 @@ from registration.backends.simple.views import RegistrationView
 
 from .forms import PersonaForm
 from .models import Persona
+from modulo_clei.models import CLEI
 # Create your views here.
 
 class PersonaRegistrationView(RegistrationView):
@@ -27,4 +28,6 @@ class PersonaRegistrationView(RegistrationView):
         signals.user_registered.send(sender=self.__class__,
                                      user=new_user,
                                      request=request)
+
+
         return new_user

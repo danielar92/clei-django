@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from personas.models import Persona
 
@@ -10,14 +11,36 @@ class Topico(models.Model):
         return self.nombre
 
 class CLEI(models.Model):
-    fechaInscripcionDescuento = models.DateTimeField()
-    fechaInscripcion = models.DateTimeField()
-    fechaTopeArticulo = models.DateTimeField()
-    fechaNotificacion = models.DateTimeField()
-    tarifaReducida = models.FloatField()
-    tarifaNormal = models.FloatField()
-    fechaInicio =  models.DateTimeField()
+    fechaInscripcionDescuento = models.DateTimeField('Fecha de inscripcion con descuento', help_text='hasta esta fecha se haran las incripciones con descuento')
+    fechaInscripcion = models.DateTimeField('Fecha de inscripcion', help_text='fecha maxima de inscripcion')
+    fechaTopeArticulo = models.DateTimeField('Fecha tope de envio de articulos', help_text='Fecha hasta la que se reciben articulos')
+    fechaNotificacion = models.DateTimeField('Fecha notificacion', help_text='Fecha en la que se envian los emails de notificacion')
+    tarifaReducida = models.FloatField('Tarifa Reducida')
+    tarifaNormal = models.FloatField('Tarifa Normal')
+    fechaInicio =  models.DateTimeField('Fecha de Inicio CLEI')
     topicos = models.ManyToManyField(Topico, related_name='cleis')
+
+    @property
+    def puede_enviar(self):
+        return self.fechaTopeArticulo > timezone.now()
+
+    @property
+    def puede_inscribir(self):
+        return self.fechaInscripcion > timezone.now()
+
+    @property
+    def costo_inscripcion(self):
+        if timezone.now() < self.fechaInscripcionDescuento:
+            return self.tarifaReducida
+
+        return self.tarifaNormal
+
+    def inscrito(self, user):
+        return user.persona.inscripciones.filter(clei=self).exists()
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('clei_detail', args=[self.pk])
 
     def __unicode__(self):
         return "CLEI del %s" % (self.fechaInicio.strftime("%Y"))
@@ -31,13 +54,16 @@ class CP(models.Model):
 
 
 class Inscripcion(models.Model):
-    dirPostal = models.CharField(max_length=60)
-    pagWeb = models.URLField(max_length=60)
-    telf = models.IntegerField()
-    tipo = models.IntegerField()
-    fecha = models.DateTimeField()
+    fecha = models.DateTimeField(auto_now_add=True)
     clei = models.ForeignKey(CLEI, related_name='inscripciones')
     persona = models.ForeignKey(Persona, related_name='inscripciones')
+    costo = models.FloatField()
+
+    def __unicode__(self):
+        return "Inscripcion de %s en el %s" % (self.persona, self.clei)
+
+    class Meta:
+        unique_together = ("clei", "persona")
 
 
 ACEPTADO, RECHAZADO, REVISANDO, ESPERANDO = range(4)
@@ -49,7 +75,7 @@ STATUS_CHOICES = (
 )
 class Articulo(models.Model):
     titulo = models.CharField(max_length=60)
-    pclaves = models.TextField(max_length=60)
+    pclaves = models.TextField("Palabras claves", help_text="hasta 5 palabras claves, separadas por coma", max_length=60,)
     status = models.IntegerField(choices=STATUS_CHOICES, default=ESPERANDO)
     autores = models.ManyToManyField(Persona, related_name='articulos')
     topicos = models.ManyToManyField(Topico)

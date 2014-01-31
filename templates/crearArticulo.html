@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block content%}
+{% if clei.puede_enviar %}
     <form  method="POST">
       <table style="" >
         {% csrf_token %}
@@ -9,5 +10,8 @@
         <input type="submit" class="btn btn-default" value="Crear" />
       </table>
     </form>
+{% else %}
+Este CLEI ya no está recibiendo artículos
+{% endif %}
 
 {%endblock%}

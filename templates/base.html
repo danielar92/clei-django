@@ -8,8 +8,17 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{STATIC_URL}}img/logo.jpg">
      <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.min.css"/>
      <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap-responsive.min.css"/>
+     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/datepicker.css"/>
      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
      <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+     <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap-datepicker.js"></script>
+     <script type="text/javascript">
+       $(function() {
+       $('.datetimeinput').datepicker({
+       format: 'yyyy-mm-dd'
+       });
+       });
+     </script>
   </head>
 
 <body>
@@ -31,10 +40,26 @@
         <ul class="nav navbar-nav">
           <li><a href="#">Acerca de</a></li>
           <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ actual.get_absolute_url }}">Edición Actual <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="{{ actual.get_absolute_url }}">Información</a></li>
+              <li><a href="{% url "clei_articulo_create" actual.pk %}">Envíar Artículo</a></li>
+              <li>
+                {% if not inscrito %}
+                <a href="{% url "clei_inscripcion_create" actual.pk %}">Inscribirse</a>
+                {% else %}
+                <a href="#"><strong>Inscrito!</strong></a>
+                {% endif %}
+              </li>
+            </ul>
+
+          </li>
+          <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"  >Ediciones pasadas <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="http://clei2013.org.ve/"> CLEI 2013</a></li>
-              <li><a href="http://clei.org/clei2012/">CLEI 2012</a></li>
+              {% for clei in cleis %}
+              <li><a href="{{ clei.get_absolute_url }}">{{ clei }}</a></li>
+              {% endfor %}
             </ul>
           </li>
           {% if user.is_superuser %}
@@ -55,6 +80,7 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle nav navbar-nav navbar-right" data-toggle="dropdown"  >{{user.username}} <b class="caret"></b></a>
             <ul class="dropdown-menu  nav navbar-nav navbar-right">
+              <li><a href="/">Mi Perfil</a></li>
               <li><a href="/accounts/logout"> Cerrar sesion</a></li>
             </ul>
           </li>
@@ -69,7 +95,11 @@
     </nav>
   </header>
   <div class="container">
-
+{% if messages %}
+{% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+{% endfor %}
+{% endif %}
 {% block content%}
   {%endblock%}
     </div>
