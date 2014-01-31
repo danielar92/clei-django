@@ -33,11 +33,3 @@ class Inscripcion(models.Model):
     fecha = models.DateTimeField()
     clei = models.ForeignKey(CLEI, related_name='inscripciones')
     persona = models.ForeignKey('personas.Persona', related_name='inscripciones')
-
-class Evaluacion(models.Model):
-    articulo = models.ForeignKey(Articulo, related_name='correcciones')
-    evaluador = models.ForeignKey(Persona, related_name='evaluaciones')
-    nota = models.IntegerField()
-
-    class Meta:
-        unique_together = ("articulo", "evaluador")

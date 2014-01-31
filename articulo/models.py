@@ -17,6 +17,9 @@ class Articulo(models.Model):
 	autores = models.ManyToManyField('personas.Autor')
 	topicos = models.ManyToManyField('modulo_clei.Topico')
 	
+	def __unicode__(self):
+		return self.titulo
+
 	@property
 	def nota(self):
 		return 0
