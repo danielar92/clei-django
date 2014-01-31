@@ -14,7 +14,7 @@ def lugar(request):
 			return HttpResponseRedirect('/')
 	else:
 		formulario = LugarForm()
-	return render_to_response('formulario.html',{'formulario':formulario}, context_instance=RequestContext(request))
+	return render_to_response('eventos/formLugar.html',{'formulario':formulario}, context_instance=RequestContext(request))
 	
 def taller(request):
 	if request.method=='POST':
@@ -24,7 +24,7 @@ def taller(request):
 			return HttpResponseRedirect('/')
 	else:
 		formulario = TallerForm()
-	return render_to_response('formulario.html',{'formulario':formulario}, context_instance=RequestContext(request))
+	return render_to_response('eventos/formTaller.html',{'formulario':formulario}, context_instance=RequestContext(request))
 
 def charla(request):
 	if request.method=='POST':
@@ -34,7 +34,7 @@ def charla(request):
 			return HttpResponseRedirect('/')
 	else:
 		formulario = CharlaForm()
-	return render_to_response('formulario.html',{'formulario':formulario}, context_instance=RequestContext(request))
+	return render_to_response('eventos/formCharla.html',{'formulario':formulario}, context_instance=RequestContext(request))
 	
 def ponencia(request):
 	if request.method=='POST':
@@ -44,7 +44,7 @@ def ponencia(request):
 			return HttpResponseRedirect('/')
 	else:
 		formulario = PonenciaForm()
-	return render_to_response('formulario.html',{'formulario':formulario}, context_instance=RequestContext(request))
+	return render_to_response('eventos/formPonencia.html',{'formulario':formulario}, context_instance=RequestContext(request))
 	
 def clausura(request):
 	if request.method=='POST':
@@ -54,7 +54,7 @@ def clausura(request):
 			return HttpResponseRedirect('/')
 	else:
 		formulario = ClausuraForm()
-	return render_to_response('formulario.html',{'formulario':formulario}, context_instance=RequestContext(request))
+	return render_to_response('eventos/formClausura.html',{'formulario':formulario}, context_instance=RequestContext(request))
 	
 def apertura(request):
 	if request.method=='POST':
@@ -64,7 +64,7 @@ def apertura(request):
 			return HttpResponseRedirect('/')
 	else:
 		formulario = AperturaForm()
-	return render_to_response('formulario.html',{'formulario':formulario}, context_instance=RequestContext(request))
+	return render_to_response('eventos/formApertura.html',{'formulario':formulario}, context_instance=RequestContext(request))
 	
 def evesocial(request):
 	if request.method=='POST':
@@ -74,4 +74,4 @@ def evesocial(request):
 			return HttpResponseRedirect('/')
 	else:
 		formulario = EventoSocialForm()
-	return render_to_response('formulario.html',{'formulario':formulario}, context_instance=RequestContext(request))
+	return render_to_response('eventos/formEvesocial.html',{'formulario':formulario}, context_instance=RequestContext(request))

@@ -14,29 +14,18 @@
     <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
-<table border="0" class="fondo" style="width: 35%">
-    <form action="/clei/topicos/create/" method="POST">
-        {% csrf_token %}
-        <th colspan="2" style="text-align: center;">
-            <h3> Creación de Tópicos <h3>
-        </th>    
-        </tr>
-        <tr style="width: 10%;">
-            <td colspan="2">
-                {{form|crispy}}
-            </td>
-        </tr>
-        <tr colspan="2" style="text-align: center;">
-            <td>
-                <input type="submit" class="btn btn-info" value="Crear Tópico" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <br>
-            </td>
-        </tr>
-    </form>
-</table>
 
-{%endblock%}
+<html>
+    <body>
+        <table border="0" class="fondo">
+        <h1>PROBANDO FORMULARIOS DE EVENTOS</h1>
+            <form id='formulario' method='POST' action=''>{% csrf_token %}
+
+                {{formulario.as_p}}
+
+                <p><input type='submit' value='OK'/></p>
+            </form>
+        </table>
+    </body>
+</html>
+{% endblock %}
