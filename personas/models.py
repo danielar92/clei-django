@@ -16,9 +16,3 @@ class Persona(User):
 
     def __unicode__(self):
         return "%s %s" % (self.nombre, self.apellido)
-
-class Autor(Persona):
-    pass
-
-class MiembroCP(Persona):
-    pass
