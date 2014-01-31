@@ -17,11 +17,9 @@ class Articulo(models.Model):
     autores = models.ManyToManyField(Persona, related_name='articulos')
     topicos = models.ManyToManyField(Topico)
     clei = models.ForeignKey(CLEI, related_name='articulos', null=True, blank=True)
-		return self.titulo
 
-	@property
     def __unicode__(self):
-        return self.titulo
+        return "%s por %s" % (self.titulo, ' '.join(str(x) for x in self.autores.all()))
 
     @property
     def nota(self):

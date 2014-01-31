@@ -52,22 +52,14 @@ class CP(models.Model):
 
 
 class Inscripcion(models.Model):
-    dirPostal = models.CharField(max_length=60)
-    pagWeb = models.URLField(max_length=60)
-    telf = models.IntegerField()
-    tipo = models.IntegerField()
     fecha = models.DateTimeField(auto_now_add=True)
     clei = models.ForeignKey(CLEI, related_name='inscripciones')
     persona = models.ForeignKey('personas.Persona', related_name='inscripciones')
     costo = models.FloatField()
 
-    def __unicode__(self):
-        return "Inscripcion de %s en el %s" % (self.persona, self.clei)
-
-class Evaluacion(models.Model):
-    articulo = models.ForeignKey('articulo.Articulo', related_name='correcciones')
-    evaluador = models.ForeignKey('personas.Persona', related_name='evaluaciones')
-    nota = models.IntegerField()
-
     class Meta:
         unique_together = ("clei", "persona")
+
+
+    def __unicode__(self):
+        return "Inscripcion de %s en el %s" % (self.persona, self.clei)

@@ -18,8 +18,8 @@ class Evento(models.Model):
 	nombre = models.CharField(max_length=80)
 	lugar = models.ForeignKey(Lugar)
 	fecha = models.DateField()
-	horaIni = models.TimeField()
-	horaFin = models.TimeField()
+	horaIni = models.TimeField(null=True)
+	horaFin = models.TimeField(null=True)
 
 	def __unicode__(self):
 		return self.nombre
@@ -28,14 +28,14 @@ class Taller(Evento):
 	pass
 	
 class Charla(Evento):
-	charlista = models.ForeignKey(Persona, related_name='charlista_charla')
-	moderador = models.ForeignKey(Persona, related_name='moderador_charla')
+	charlista = models.ForeignKey(Persona, related_name='charlista_charla', null=True)
+	moderador = models.ForeignKey(Persona, related_name='moderador_charla', null=True)
 	
 class Ponencia(Evento):
     articulos = models.ManyToManyField(Articulo)
-	ponente = models.ForeignKey(Persona, related_name='ponente_ponencia')
-	trabajos = models.ManyToManyField(Articulo, related_name='trabajos_ponencia')
-	moderador = models.ForeignKey(Persona, related_name='moderador_ponencia')
+    ponente = models.ForeignKey(Persona, related_name='ponente_ponencia', null=True)
+    trabajos = models.ManyToManyField(Articulo, related_name='trabajos_ponencia', null=True)
+    moderador = models.ForeignKey(Persona, related_name='moderador_ponencia', null=True)
 
 class Apertura(Evento):
 	pass

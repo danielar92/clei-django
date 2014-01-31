@@ -34,6 +34,9 @@ def clei_processor(request):
 def home(request):
     return render(request,'home.html')
 
+def articulo(request):
+    return render(request,'paginaArt.html')
+
 
 class InscripcionCreateView(LoginRequiredMixin, CLEIMixin, CreateView):
     model = Inscripcion

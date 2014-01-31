@@ -13,6 +13,7 @@ from personas.views import PersonaRegistrationView
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'modulo_clei.views.home', name='home'),
+    url(r'^articulos','modulo_clei.articulo',name='articulo')
     url(r'^accounts/register/$',
         PersonaRegistrationView.as_view(),
         name='registration_register'),

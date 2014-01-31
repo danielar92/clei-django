@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render
 from evento.models import Articulo
 from django.http import HttpResponseRedirect
@@ -9,7 +10,8 @@ from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 from .models import Articulo
 from .forms import ArticuloForm
 
-from modulo_clei.views import CLEIMixin
+
+from modulo_clei.utils import CLEIMixin
 
 
 # Create your views here.
@@ -20,7 +22,7 @@ def articulo(request):
 			formulario.save()
 			return HttpResponseRedirect('/')
 	else:
-	return render_to_response('formulario.html',{'formulario':formulario}, context_instance=RequestContext(request))
+		return render_to_response('formulario.html',{'formulario':formulario}, context_instance=RequestContext(request))
 
 class ArticuloCreateView(LoginRequiredMixin, CLEIMixin, CreateView):
     model = Articulo

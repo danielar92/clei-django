@@ -1,151 +1,64 @@
-<!DOCTYPE html>
-{% extends "registration/base.html" %}
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}Registrarse{% endblock %}
 
 {% block content %}
 
-{% if form.errors %}
-<table>
-    <tbody>
-        <tr>
-            <td>
-                <text style="color: firebrick" class="errors">Por favor, corrija los siguientes errores:</text>
-            <td>
-        </tr>
-        <tr>
-            <td>
-                <text style="color: firebrick" class="errors"> {{ form.non_field_errors }}</text>
-            </td>
-        </tr>
-    </tbody>
-</table>
-{% endif %}
-<head>
+  {% if form.errors %}
+  <p class="errors">Por favor, corrija los siguientes errores: {{ form.non_field_errors }}</p>
+  {% endif %}
+  <head>
     <title>CLEI</title>
     {% load staticfiles%}
     <meta charset="utf-8">
     <link rel="shortcut icon" type="image/x-icon" href="{{STATIC_URL}}img/logo.jpg">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/estilos.css"/>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap-responsive.min.css"/>
-    <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-</head>
+     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.min.css"/>
+     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap-responsive.min.css"/>
+     <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  </head>
 
 
-<table border="0" class="fondo" style="width: 30%; height: 100%">
-    <th colspan="2" style="text-align: center;">
-        <h3>Crear nueva cuenta</h3>
-    </th>
-    <tbody>
-        <form method="post" action="" class="wide">
+  <h1>Crear nueva cuenta</h1>
+
+  <form method="post" action="" class="wide">
+	{% csrf_token %}
         {% csrf_token %}
-        <tr>
-            <td style="text-align: center;">
-                <label for="id_username">Usuario:</label>
-            </td>
-            <td style="text-align: center;">
-                {{ form.username }} 
-            </td>
-            {% if form.username.errors %}
-            <tr>
-                <td style="text-align: center;">
-                    <text style="color: firebrick" class="errors">{{ form.username.errors.as_text }}</text>
-                </td>
-            </tr>
-            {% endif %}
-        </tr>
-        <tr>
-            <td style="text-align: center;">
-                <label for="id_email">Email:</label>
-            </td>
-            <td style="text-align: center;">
-                {{ form.email }}
-            </td>
-            {% if form.email.errors %}
-            <tr>
-                <td style="text-align: center;">
-                        <text style="color: firebrick" class="errors">{{ form.email.errors.as_text }}</text>
-                </td>
-            </tr>
-            {% endif %}
-        </tr>
-        <tr>
-            <td style="text-align: center;">
-                <label for="id_password1">Contraseña:</label>
-            </td>
-            <td style="text-align: center;">
-                {{ form.password1 }}
-            </td> 
-            {% if form.password1.errors %}
-            <tr>
-                <td style="text-align: center;">
-                    <text style="color: firebrick" class="errors">{{ form.password1.errors.as_text }}</text>
-                </td>
-            </tr>
-            {% endif %}
-        </tr>
-        <tr>
-            <td style="text-align: center;">
-                <label for="id_password2">Confirme Contraseña:</label>
-            </td>
-            <td style="text-align: center;">
-                {{ form.password2 }}
-            </td>
-            {% if form.password2.errors %}
-            <tr>
-                <td style="text-align: center;">
-                    <text style="color: firebrick" class="errors">{{ form.password2.errors.as_text }}</text>
-                </td>
-            </tr>
-            {% endif %}
-        </tr>
+        {{form|crispy}}
+    <!-- <form class="form-horizontal"> -->
+    <!--   <fieldset> -->
+    <!--     <div class="control-group"> -->
+    <!--       <label class="control-label">Seleccione tipo de usuario:</label> -->
+    <!--       <div class="controls"> -->
+    <!--         <select> -->
+    <!--           <option value="1">Autor</option> -->
+    <!--           <option value="2">Participante</option> -->
+    <!--         </select> -->
+    <!--       </div> -->
+    <!--     </div> -->
+    <!--   </fieldset> -->
+    <!-- </form> -->
 
-        <!-- <form class="form-horizontal"> -->
-        <!--   <fieldset> -->
-        <!--     <div class="control-group"> -->
-        <!--       <label class="control-label">Seleccione tipo de usuario:</label> -->
-        <!--       <div class="controls"> -->
-        <!--         <select> -->
-        <!--           <option value="1">Autor</option> -->
-        <!--           <option value="2">Participante</option> -->
-        <!--         </select> -->
-        <!--       </div> -->
-        <!--     </div> -->
-        <!--   </fieldset> -->
-        <!-- </form> -->
+    <!-- <form action="" method="post"> -->
+    <!--   {% csrf_token %} -->
+    <!--   {{ persona_form.as_p }} -->
+    <!-- </form> -->
 
-        <!-- <form action="" method="post"> -->
-        <!--   {% csrf_token %} -->
-        <!--   {{ persona_form.as_p }} -->
-        <!-- </form> -->
-        
-        <tr colspan="2" style="text-align: center">
-            <td colspan="2">
-               <a class="submit"><input style="margin-top:17px" type="submit" class="btn btn-info" value="Registrarse "></a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <br>
-            </td>
-        </tr>
-        
-    </form>
-</tbody>
-</table>
+
+    <p class="submit"><input style="margin-top:17px" type="submit" class="btn btn-default" value="Registrarse &rarr;"></p>
+  </form>
 
 {% endblock %}
 
 {% block content-related %}
 <p>Fill out the form to the left (all fields are required), and your
-    account will be created; you'll be sent an email with instructions on how
-    to finish your registration.</p>
+account will be created; you'll be sent an email with instructions on how
+to finish your registration.</p>
 
 <p>We'll only use your email to send you signup instructions. We hate spam
-    as much as you do.</p>
+as much as you do.</p>
 
 <p>This account will let you log into the ticket tracker, claim tickets,
-    and be exempt from spam filtering.</p>
+and be exempt from spam filtering.</p>
 {% endblock %}
