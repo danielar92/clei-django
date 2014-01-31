@@ -45,6 +45,8 @@ INSTALLED_APPS = (
     'registration',
     'modulo_clei',
     'personas',
+    'articulo',
+    'evento',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 2

@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic.base import RedirectView
 from django.contrib import admin
-from modulo_clei.views import CLEICreateView, CLEIListView, CLEIUpdateView, CLEIDetailView, TopicoCreateView, TopicoListView, TopicoUpdateView, ArticuloCreateView, ArticuloListView, ArticuloUpdateView, InscripcionCreateView
+from modulo_clei.views import CLEICreateView, CLEIListView, CLEIUpdateView, CLEIDetailView, TopicoCreateView, TopicoListView, TopicoUpdateView, InscripcionCreateView
+from articulo.views import  ArticuloListView, ArticuloUpdateView, ArticuloCreateView
 admin.autodiscover()
 
 from registration.backends.simple.views import RegistrationView
