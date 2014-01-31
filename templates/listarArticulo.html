@@ -3,11 +3,21 @@
 
 {% block content%}
 <ul>
-{% for articulo in object_list %}
-<li><a href="{% url "articulo_update" articulo.pk %}">{{ articulo }}</a></li>
-{% empty %}
-No existe ningún Articulo
-{% endfor %}
-</ul> 
-<a href="{% url "articulo_create" %}">Crear Articulo</a>
+    <table class="table table-stripped" style="width: 50%">
+    {% for articulo in object_list %}
+    <tr>
+        <td style="text-align: center;">
+        <text style="text-align: center;"><a href="{% url "articulo_update" articulo.pk %}">{{ articulo }}</a></text>
+        </td>
+    <tr>
+    {% empty %}
+    No existe ningún Articulo
+    {% endfor %}
+    <tr>
+        <td style="text-align: center;">
+            <button class="btn btn-default"><a href="{% url "clei_topico_create" %}">Crear Articulo</a></button>
+        </td>
+    </tr>
+    </table>
+</ul>
 {%endblock%}
