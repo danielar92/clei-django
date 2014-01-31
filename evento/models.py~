@@ -1,4 +1,3 @@
-#encoding:utf-8
 from django.db import models
 from modulo_clei.models import CLEI, Topico, Articulo
 from personas.models import Persona
@@ -32,7 +31,7 @@ class Charla(Evento):
 	moderador = models.ForeignKey(Persona, related_name='moderador_charla')
 	
 class Ponencia(Evento):
-	ponente = models.ForeignKey(Persona)
+	ponente = models.ForeignKey(Persona, related_name='ponente_ponencia')
 	trabajos = models.ManyToManyField(Articulo, related_name='trabajos_ponencia')
 	moderador = models.ForeignKey(Persona, related_name='moderador_ponencia')
 

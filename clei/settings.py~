@@ -99,8 +99,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-<<<<<<< HEAD
+
 RUTA_PROYECTO = os.path.dirname(os.path.realpath(__file__))
-=======
+
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
->>>>>>> 540a36eb965c08d347b831ecee0df7d735d8c3cd
+
