@@ -19,3 +19,20 @@ def articulo(request):
 	else:
 		formulario = ArticuloForm()
 	return render_to_response('formulario.html',{'formulario':formulario}, context_instance=RequestContext(request))
+
+class ArticuloCreateView(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
+    model = Articulo
+    form_class = ArticuloForm
+    template_name = 'crearArticulo.html'
+    success_url = '/articulo/list'
+
+class ArticuloListView(LoginRequiredMixin, SuperuserRequiredMixin, ListView):
+    model = Articulo
+    context_object_name = 'articulo'
+    template_name = 'listarArticulo.html'
+
+class ArticuloUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, ListView):
+    model = Articulo
+    template_name = 'actualizarArticulo.html'
+    success_url = 'articulo/list'
+
