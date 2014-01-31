@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{{ object }}
+
+<a href="{% url "clei_articulo_create" object.pk %}" >Enviar articulo</a>.
+
+{% endblock %}

@@ -16,9 +16,10 @@ class PersonaRegistrationView(RegistrationView):
         username, email, password = cleaned_data['username'], cleaned_data['email'], cleaned_data['password1']
         nombre, apellido, institucion = cleaned_data['nombre'], cleaned_data['apellido'], cleaned_data['institucion']
         pais, experticies = cleaned_data['pais'], cleaned_data['experticies']
+        dirPostal,pagWeb,telf = cleaned_data['dirPostal'],cleaned_data['pagWeb'],cleaned_data['telf']
         Persona.objects._create_user(username, email, password, False, False,
                                      nombre=nombre, apellido=apellido,
-                                     institucion=institucion, pais=pais)
+                                     institucion=institucion, pais=pais,dirPostal=dirPostal,pagWeb=pagWeb,telf=telf)
         new_user = authenticate(username=username, password=password)
         for experticie in experticies:
             new_user.persona.experticies.add(experticie)

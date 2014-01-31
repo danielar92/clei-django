@@ -8,6 +8,9 @@ class Persona(User):
     apellido = models.CharField(max_length=60)
     institucion  = models.CharField(max_length=60)
     pais = CountryField()
+    dirPostal = models.CharField(max_length=60)
+    pagWeb = models.URLField(max_length=60)
+    telf = models.IntegerField()
     experticies = models.ManyToManyField('modulo_clei.Topico')
 
     def __unicode__(self):

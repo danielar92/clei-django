@@ -51,9 +51,12 @@ class Articulo(models.Model):
     titulo = models.CharField(max_length=60)
     pclaves = models.TextField(max_length=60)
     status = models.IntegerField(choices=STATUS_CHOICES, default=ESPERANDO)
-    autores = models.ManyToManyField(Persona)
+    autores = models.ManyToManyField(Persona, related_name='articulos')
     topicos = models.ManyToManyField(Topico)
-    clei = models.ForeignKey(CLEI, related_name='articulos')
+    clei = models.ForeignKey(CLEI, related_name='articulos', null=True, blank=True)
+
+    def __unicode__(self):
+        return self.titulo
 
     @property
     def nota(self):

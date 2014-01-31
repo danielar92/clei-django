@@ -2,16 +2,16 @@ from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 from django.template import RequestContext
 from django import forms
-from modulo_clei.models import CLEI,Topico , CP
+from modulo_clei.models import CLEI,Topico , CP, Articulo
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.forms import ModelForm
 
-from vanilla.model_views import CreateView, ListView, UpdateView
+from vanilla.model_views import CreateView, ListView, UpdateView, DetailView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 
-from .forms import CLEIForm, TopicoForm
+from .forms import CLEIForm, TopicoForm, ArticuloForm
 
 
 def log_in_processor(request):
@@ -25,6 +25,34 @@ def home(request):
 #     form_class = CPForm
 #     template_nema = 'crearCP.html'
 #     succes_url = '/clei/CP/create'
+
+
+class ArticuloCreateView(LoginRequiredMixin, CreateView):
+    model = Articulo
+    form_class = ArticuloForm
+    template_name = 'crearArticulo.html'
+    success_url = '/clei/articulos/list'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        clei_pk = self.kwargs.get('pk')
+        clei = CLEI.objects.get(pk=clei_pk)
+        self.object.clei = clei
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+class ArticuloListView(LoginRequiredMixin, ListView):
+    model = Articulo
+    context_object_name = 'articulos'
+    template_name = 'listarArticulos.html'
+    def get_queryset(self):
+        return self.request.user.persona.articulos.all()
+
+class ArticuloUpdateView(LoginRequiredMixin, UpdateView):
+    model = Articulo
+    template_name = 'actualizarArticulo.html'
+    success_url = '/clei/articulos/list'
+
 
 class TopicoCreateView(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
     model = Topico
@@ -42,6 +70,10 @@ class TopicoUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
     template_name = 'actualizarTopico.html'
     success_url = '/clei/topicos/list'
 
+class CLEIDetailView(DetailView):
+    model = CLEI
+    template_name = "detallesCLEI.html"
+
 class CLEICreateView(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
     model = CLEI
     form_class = CLEIForm
@@ -57,7 +89,7 @@ class CLEICreateView(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
         return HttpResponseRedirect(self.success_url)
 
 
-class CLEIListView(LoginRequiredMixin, SuperuserRequiredMixin, ListView):
+class CLEIListView(LoginRequiredMixin, ListView):
     model = CLEI
     context_object_name = 'cleis'
     template_name = 'listarCLEI.html'

@@ -1,5 +1,5 @@
 from django import forms
-from modulo_clei.models import CLEI, Topico, CP
+from modulo_clei.models import CLEI, Topico, CP, Articulo
 from personas.models import Persona
 
 class CLEIForm(forms.ModelForm):
@@ -10,6 +10,11 @@ class CLEIForm(forms.ModelForm):
 class TopicoForm(forms.ModelForm):
     class Meta:
         model = Topico
+
+class ArticuloForm(forms.ModelForm):
+    class Meta:
+        model = Articulo
+        exclude = ['clei', 'status']
 
 # class CPForm(forms.ModelForm):
 #     class Meta:

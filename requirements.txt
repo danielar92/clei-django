@@ -11,3 +11,4 @@ virtualenvwrapper==3.7
 wsgiref==0.1.2
 django-crispy-forms
 django-braces
+django-vanilla-views

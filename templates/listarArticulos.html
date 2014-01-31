@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+<ul>
+{% for articulo in object_list %}
+<li><a href="{% url "clei_articulo_update" articulo.pk %}">{{ articulo }}</a></li>
+{% empty %}
+No existe ningún articulo asociado a ti
+{% endfor %}
+</ul>
+{%endblock%}

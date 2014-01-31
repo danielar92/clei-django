@@ -4,10 +4,10 @@
 {% block content%}
 <ul>
 {% for clei in object_list %}
-<li><a href="{% url "clei_update" clei.pk %}">{{ clei }}</a></li>
+<li><a href="{% url "clei_detail" clei.pk %}">{{ clei }}</a> {% if user.is_superuser %}<a href="{% url "clei_update" clei.pk %}">Modificar</a>{% endif %}</li>
 {% empty %}
 No existe ningún CLEI
 {% endfor %}
 </ul>
-<a href="{% url "clei_create" %}">Crear CLEI</a>
+{% if user.is_superuser %}<a href="{% url "clei_create" %}">Crear CLEI</a>{% endif %}
 {%endblock%}

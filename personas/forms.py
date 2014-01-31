@@ -8,4 +8,7 @@ class PersonaForm(RegistrationForm):
     apellido = forms.CharField(max_length=60)
     institucion = forms.CharField(max_length=60)
     pais = forms.ChoiceField(sorted([(k, v) for k,v in COUNTRIES.items()]))
+    dirPostal = forms.CharField(max_length=60)
+    pagWeb = forms.URLField(max_length=60)
+    telf = forms.CharField(max_length=20)
     experticies = forms.ModelMultipleChoiceField(queryset=Topico.objects.all())
